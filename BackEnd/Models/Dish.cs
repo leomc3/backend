@@ -6,7 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace BackEnd.Models
-{//padrao é plural
+{   
+    //Model
     [Table("Dishes")]
     public class Dish
     {

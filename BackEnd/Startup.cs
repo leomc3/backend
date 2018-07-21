@@ -11,20 +11,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
+
+
 namespace BackEnd
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+       
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()));
             var connection = @"Server=(localdb)\mssqllocaldb;Database=Teste_Cedro;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<AppDbContext>(opt =>
                opt.UseSqlServer(connection));
@@ -39,7 +38,7 @@ namespace BackEnd
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("AllowAll");
             app.UseMvc();
         }
     }

@@ -5,11 +5,10 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace BackEnd.Models
-
 {
-    //padrao é plural
+    //make
+
     [Table("Restaurants")]
     public class Restaurant
     {
