@@ -24,12 +24,13 @@ namespace BackEnd.Controllers
         public async Task<List<Dish>> GetAll()
         {//Include - responsavel por trazer o relacionamento
 
-            return await _db.Dishes.
-                OrderBy(r => r.Name).
-                ToListAsync();
+            return await  _db.Dishes.OrderBy(r => r.Name).ToListAsync();
+           
+
+          
         }
-        
-        
+
+
         [HttpGet("{id}", Name = "Dish.Get")]
         public async Task<IActionResult> GetId(int id)
         {
@@ -42,14 +43,14 @@ namespace BackEnd.Controllers
                     return NotFound();
                 }
 
-                return  Ok(dish);
+                return Ok(dish);
             }
             catch (Exception)
             {
                 return StatusCode(500);
             }
         }
-        
+
         [HttpPost(Name = "Dish.Create")]
         public async Task<IActionResult> Create([FromBody] Dish newDish)
         {
@@ -59,7 +60,7 @@ namespace BackEnd.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-               
+
                 await _db.Dishes.AddAsync(newDish);
                 await _db.SaveChangesAsync();
                 return CreatedAtRoute("Dish.Get", new { id = newDish.Id }, newDish);
@@ -91,7 +92,7 @@ namespace BackEnd.Controllers
                 await _db.SaveChangesAsync();
                 return NoContent();
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return StatusCode(500);
             }
@@ -112,7 +113,7 @@ namespace BackEnd.Controllers
                 await _db.SaveChangesAsync();
                 return NoContent();
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return StatusCode(500);
 
@@ -122,4 +123,3 @@ namespace BackEnd.Controllers
 
     }
 }
- 

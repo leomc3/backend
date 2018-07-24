@@ -21,12 +21,8 @@ namespace BackEnd.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Dish>()
-                .HasOne(r => r.Restaurant)
-                .WithMany(p => p.Dishes);
-
-            modelBuilder.Entity<Restaurant>()
-                .HasMany(p => p.Dishes)
-                .WithOne(r => r.Restaurant);
+                .HasOne(r => r.Restaurant);              
+          
         }
 
     }

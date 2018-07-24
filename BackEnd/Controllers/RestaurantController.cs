@@ -21,12 +21,11 @@ namespace BackEnd.Controllers
             _db = db;
         }
 
-        [HttpGet(Name = "Restaurant.GetAll")]
+        [HttpGet(Name = "Restaurant.GetAll")]   
         public async Task<List<Restaurant>> GetAll()
         {
             //Include - responsavel por trazer o relacionamento
-            return await _db.Restaurants.
-                Include(p => p.Dishes).
+            return await _db.Restaurants.      
                 OrderBy(r => r.Name).
                 ToListAsync();
         }
@@ -42,8 +41,7 @@ namespace BackEnd.Controllers
                 {
                     return NotFound();
                 }
-                //carrega relacionamento
-                await _db.Entry(restaurant).Collection(r => r.Dishes).LoadAsync();
+               
                 return Ok(restaurant);
             }
             catch (Exception)
@@ -51,6 +49,8 @@ namespace BackEnd.Controllers
                 return StatusCode(500);
             }
         }
+
+        [HttpPost(Name = "Restaurant.Create")]
         public async Task<IActionResult> Create([FromBody] Restaurant newRestaurant)
         {
             try
@@ -71,10 +71,6 @@ namespace BackEnd.Controllers
         }
 
         [HttpPut("{id}", Name = "Restaurant.Updt")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(500)]
         public async Task<IActionResult> Update(int id, [FromBody] Restaurant restaurantNew)
         {
             try
@@ -103,9 +99,6 @@ namespace BackEnd.Controllers
         }
 
         [HttpDelete("{id}", Name = "Restaurant.Del")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(500)]
         public async Task<IActionResult> Delete(int id)
         {
             try
